@@ -14,13 +14,13 @@ const (
 func main() {
 	log.Intialize()
 
-	bf_t := time.Now()
-	fmt.Println(bf_t)
+	startTime := time.Now()
+	fmt.Println(startTime)
 
 	fn := os.Args[ARG_FUNCTION]
 
 	//slack 開始時間通知
-	text := fn + " start at " + bf_t.Format("2006-01-02 15:04:05")
+	text := fn + " start at " + startTime.Format("2006-01-02 15:04:05")
 	log.Println(text)
 
 	//slack.Slack(text)
@@ -41,8 +41,8 @@ func main() {
 
 	}
 	//slack 終了時間通知
-	t := time.Now().Sub(bf_t)
-	text = fmt.Sprintf("%s elapsed time %f [sec]", fn, t.Minutes())
+	elapsedTime := time.Now().Sub(startTime)
+	text = fmt.Sprintf("%s elapsed time %f [sec]", fn, elapsedTime.Minutes())
 	//slack.Slack(text)
 	log.Println(text)
 	log.Println("batch " + fn + " end")

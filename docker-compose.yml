@@ -1,0 +1,29 @@
+version: '3'
+services:
+  go:
+    container_name: batch
+    build: ./docker/go
+    env_file:
+      - ./.env
+    tty: true
+    stdin_open: true
+    working_dir: "/go/src"
+    volumes:
+      - ./log:/var/log/
+      - ./src:/go/src/
+    links:
+      - mysql
+
+  mysql:
+    container_name: batch-mysql
+    build: ./docker/mysql
+    env_file:
+      - ./.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database:/var/lib/mysql/
+      - ./mysql/schema:/docker-entrypoint-initdb.d/
+
+volumes:
+    database:

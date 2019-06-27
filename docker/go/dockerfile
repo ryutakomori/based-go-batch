@@ -1,0 +1,15 @@
+FROM golang:1.12.6-alpine3.10
+
+ENV GOPATH $GOPATH:/go/src 
+
+RUN apk update && \ 
+    apk upgrade && \
+    apk --update add tzdata && \
+    apk add git && \
+    apk add build-base
+
+RUN go get github.com/jinzhu/gorm && \
+    go get github.com/go-sql-driver/mysql && \
+    go get github.com/pressly/goose/cmd/goose && \
+    go get -u golang.org/x/tools/cmd/goimports && \
+    go get -u github.com/xo/xo
